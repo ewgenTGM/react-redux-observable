@@ -1,27 +1,29 @@
 import React, {useState} from 'react';
-import {ITodo, todoApi} from '../../Api/Api';
+import {setUserId, setUserIdThunk} from '../../Store/Reducers/TodoReducer';
+import {useAppSelector} from '../../Hooks/useAppSelector';
 import {Todo} from './Todo';
+import {useDispatch} from 'react-redux';
 
 type PropsType = {};
 
 export const TodoList: React.VFC<PropsType> = props => {
-	const [todos, setTodos] = useState<ITodo[] | null>(null);
-	const [userId, setUserId] = useState<number>(1);
 
-	const fetchTodos = async () => {
-		const response = await todoApi.getTodos(userId);
-		setTodos(response.data);
-	};
+	const dispatch = useDispatch();
+	const [currentUserId, setCurrentUserId] = useState<number>(1);
 
+	const {todos, userId, error, isLoading} = useAppSelector(state => state.todo);
 	const todoList = todos?.map(todo => ( <Todo todo={todo} key={todo.id}/> ));
+
 	return (
 		<>
 			<div>
-				<input type="number" value={userId} onChange={(e) => setUserId(+e.currentTarget.value)}/>
-				<button onClick={fetchTodos}> Set user id</button>
+				<h2>User id: {userId}</h2>
+				{error && <h2>Error: {error}</h2>}
+				<input type="number" value={currentUserId} onChange={(e) => setCurrentUserId(+e.currentTarget.value)}/>
+				<button onClick={() => dispatch(setUserId(currentUserId))}> Set user id</button>
 			</div>
 			<div className="todoList">
-				{todoList || 'There aren\'t todos...'}
+				{isLoading ? <span>Loading.....</span> : todoList}
 			</div>
 		</>
 	);

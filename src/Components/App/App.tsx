@@ -4,7 +4,6 @@ import {TodoList} from '../Todo/TodoList';
 const App = () => {
 	return (
 		<div className="app">
-			Hello World!
 			<TodoList/>
 		</div>
 	);

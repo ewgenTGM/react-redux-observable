@@ -1,5 +1,5 @@
-import {ITodo} from '../../Api/Api';
-import {Epic, ofType} from 'redux-observable';
+import {ITodo, todoApi} from '../../Api/Api';
+import {AppDispatch} from '../Store';
 
 export enum ACTION_TYPES {
 	SET_USER_ID = 'SET_USER_ID',
@@ -8,41 +8,53 @@ export enum ACTION_TYPES {
 	SET_IS_LOADING = 'SET_IS_LOADING',
 }
 
-type actionType = {
-	type: ACTION_TYPES,
-	payload: any
-}
-
-export const setUserId = (userId: number): actionType => {
+export const setUserId = (userId: number) => {
 	return {
 		type: ACTION_TYPES.SET_USER_ID as const,
 		payload: {userId}
 	};
 };
 
-export const setError = (error: string): actionType => {
+export const setError = (error: string) => {
 	return {
 		type: ACTION_TYPES.SET_ERROR as const,
 		payload: {error}
 	};
 };
 
-export const setIsLoading = (error: string): actionType => {
-	return {
-		type: ACTION_TYPES.SET_ERROR as const,
-		payload: {error}
-	};
-};
-
-export const setTodos = (isLoading: boolean): actionType => {
+export const setIsLoading = (isLoading: boolean) => {
 	return {
 		type: ACTION_TYPES.SET_IS_LOADING as const,
 		payload: {isLoading}
 	};
 };
 
-const setTodosEpic: Epic<actionType, actionType, TodoStateType> = (action$, state$) =>
-	action$.pipe(ofType(ACTION_TYPES.SET_TODOS));
+export const setTodos = (todos: ITodo[]) => {
+	return {
+		type: ACTION_TYPES.SET_TODOS as const,
+		payload: {todos}
+	};
+};
+
+export const setUserIdThunk = (userId: number) => async (dispatch: AppDispatch) => {
+	dispatch(setIsLoading(true));
+	dispatch(setError(''));
+	try {
+		const response = await todoApi.getTodos(userId);
+		dispatch(setTodos(response.data));
+		dispatch(setUserId(userId));
+	} catch (e: any) {
+		dispatch(setError(e.response ? e.response.data.error : e.message));
+	} finally {
+		dispatch(setIsLoading(false));
+	}
+};
+
+export type TodoActionType =
+	ReturnType<typeof setTodos>
+	| ReturnType<typeof setUserId>
+	| ReturnType<typeof setIsLoading>
+	| ReturnType<typeof setError>;
 
 type TodoStateType = {
 	userId: number | null,
@@ -58,7 +70,7 @@ const initialState: TodoStateType = {
 	isLoading: false
 };
 
-export const todoReducer = (state: TodoStateType = initialState, action: actionType): TodoStateType => {
+export const todoReducer = (state: TodoStateType = initialState, action: TodoActionType): TodoStateType => {
 	switch (action.type) {
 		case ACTION_TYPES.SET_ERROR:
 		case ACTION_TYPES.SET_IS_LOADING:
