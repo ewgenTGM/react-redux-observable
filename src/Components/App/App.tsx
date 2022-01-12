@@ -1,12 +1,10 @@
 import React from 'react';
-import {TodoList} from '../Todo/TodoList';
+import { RegisterForm } from '../RegisterForm/RegisterForm';
 
-const App = () => {
-	return (
-		<div className="app">
-			<TodoList/>
-		</div>
-	);
-};
-
-export default App;
+export function App() {
+  return (
+    <div>
+      <RegisterForm />
+    </div>
+  );
+}
