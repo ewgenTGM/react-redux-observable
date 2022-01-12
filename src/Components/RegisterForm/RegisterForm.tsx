@@ -3,15 +3,13 @@ import { Button, Paper, TextField } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { EMAIL_PATTERN } from '../../Helpers/Constants';
 
-type PropsType = {};
-
 interface IFormInput {
   email: string,
   pass: string,
   passConfirm: string
 }
 
-export const RegisterForm: React.FC<PropsType> = () => {
+export const RegisterForm: React.FC = () => {
   const {
     register, handleSubmit, formState, watch, trigger,
   } = useForm<IFormInput>();

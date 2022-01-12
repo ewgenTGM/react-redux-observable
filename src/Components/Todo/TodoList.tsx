@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import { cancelFetch, setUserId } from '../../Store/Reducers/TodoReducer';
+import { cancelFetch, fetchUserTodos } from '../../Store/Reducers/TodoReducer';
 import { useAppSelector } from '../../Hooks/useAppSelector';
 import { Todo } from './Todo';
 import { useAppDispatch } from '../../Hooks/useAppDispatch';
 
-type PropsType = {};
-
-// eslint-disable-next-line react/function-component-definition
-export const TodoList: React.VFC<PropsType> = () => {
+export const TodoList: React.VFC = () => {
   const dispatch = useAppDispatch();
   const [currentUserId, setCurrentUserId] = useState<number>(1);
 
@@ -53,7 +50,7 @@ export const TodoList: React.VFC<PropsType> = () => {
       <Button
         variant="outlined"
         disabled={isLoading}
-        onClick={() => dispatch(setUserId(currentUserId))}
+        onClick={() => dispatch(fetchUserTodos(currentUserId))}
       >
         Set user id
       </Button>

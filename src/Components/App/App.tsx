@@ -1,10 +1,13 @@
 import React from 'react';
-import { RegisterForm } from '../RegisterForm/RegisterForm';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from '../../Router/Router';
+import { Nav } from '../Nav/Nav';
 
 export function App() {
   return (
-    <div>
-      <RegisterForm />
-    </div>
+    <BrowserRouter>
+      <Nav />
+      <Router />
+    </BrowserRouter>
   );
 }
