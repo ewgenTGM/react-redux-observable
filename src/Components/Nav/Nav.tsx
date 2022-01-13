@@ -22,7 +22,7 @@ export const Nav: React.VFC = () => {
           <NavLink to={PATH.YUP_FORM}>Yup-form</NavLink>
         </li>
       </ul>
-      <h4>{user}</h4>
+      {user && <h4>{user}</h4>}
       <Button onClick={() => dispatch(appActions.setUser({user: ''}))}>
         Logout
       </Button>

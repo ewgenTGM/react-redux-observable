@@ -21,14 +21,11 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    setTodos(state, action: PayloadAction<{todos: ITodo[]; userId: number}>) {
+    setTodos(state, action: PayloadAction<{todos: ITodo[]}>) {
       state.todos = action.payload.todos;
-      state.userId = action.payload.userId;
+      state.userId = state.fetchedUserId;
       state.fetchedUserId = 0;
       state.isLoading = false;
-    },
-    setIsLoading(state, action: PayloadAction<{isLoading: boolean}>) {
-      state.isLoading = action.payload.isLoading;
     },
     setError(state, action: PayloadAction<{error: string}>) {
       state.error = action.payload.error;

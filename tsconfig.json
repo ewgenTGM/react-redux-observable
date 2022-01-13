@@ -4,7 +4,10 @@
     "rootDir": ".",
     "outDir": "build",
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": [
+      "dom"
+    ]
   },
   "include": [
     "src/**/*.ts",

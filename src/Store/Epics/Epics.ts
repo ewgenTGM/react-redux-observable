@@ -25,7 +25,6 @@ export const fetchUserTodos: Epic<Action, Action, RootState> = action$ =>
         map(response =>
           todoActions.setTodos({
             todos: response,
-            userId: action.payload.fetchedUserId,
           })
         ),
         catchError(e => of(todoActions.setError(e))),
