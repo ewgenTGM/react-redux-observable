@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { PATH } from '../../Router/Router';
+import {NavLink} from 'react-router-dom';
+import {PATH} from '../../Router/Router';
 
 export const Nav: React.VFC = () => {
   return (

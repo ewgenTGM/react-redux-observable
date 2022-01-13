@@ -1,13 +1,13 @@
 import React from 'react';
-import { ITodo } from '../../Api/Api';
+import {ITodo} from '../../Api/Api';
 
 type PropsType = {
-  todo: ITodo
+  todo: ITodo;
 };
 
-export const Todo: React.VFC<PropsType> = (props) => {
+export const Todo: React.VFC<PropsType> = props => {
   // eslint-disable-next-line react/prop-types
-  const { title, id, completed } = props.todo;
+  const {title, id, completed} = props.todo;
   return (
     <div className="todo">
       <div className="todo-title">{title}</div>
@@ -16,9 +16,7 @@ export const Todo: React.VFC<PropsType> = (props) => {
         {id}
       </div>
       <div>
-        <span
-          className={completed ? 'completed' : 'incompleted'}
-        >
+        <span className={completed ? 'completed' : 'incompleted'}>
           {completed ? 'Complete' : 'Incomplete'}
         </span>
       </div>

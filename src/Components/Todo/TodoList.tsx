@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { Button, CircularProgress, TextField } from '@mui/material';
-import { cancelFetch, fetchUserTodos } from '../../Store/Reducers/TodoReducer';
-import { useAppSelector } from '../../Hooks/useAppSelector';
-import { Todo } from './Todo';
-import { useAppDispatch } from '../../Hooks/useAppDispatch';
+import React, {useState} from 'react';
+import {Button, CircularProgress, TextField} from '@mui/material';
+import {cancelFetch, fetchUserTodos} from '../../Store/Reducers/TodoReducer';
+import {useAppSelector} from '../../Hooks/useAppSelector';
+import {Todo} from './Todo';
+import {useAppDispatch} from '../../Hooks/useAppDispatch';
 
 export const TodoList: React.VFC = () => {
   const dispatch = useAppDispatch();
   const [currentUserId, setCurrentUserId] = useState<number>(1);
 
-  const {
-    todos, userId, error, isLoading,
-  } = useAppSelector((state) => state.todo);
+  const {todos, userId, error, isLoading} = useAppSelector(state => state.todo);
 
-  const todoList = todos.length !== 0
-    ? todos.map((todo) => <Todo todo={todo} key={todo.id} />)
-    : (
+  const todoList =
+    todos.length !== 0 ? (
+      todos.map(todo => <Todo todo={todo} key={todo.id} />)
+    ) : (
       <div>
         <span>There are no Todos</span>
       </div>
@@ -24,10 +23,7 @@ export const TodoList: React.VFC = () => {
   const spinner = (
     <div className="spinner-with-cancellation">
       <CircularProgress />
-      <Button
-        variant="outlined"
-        onClick={() => dispatch(cancelFetch())}
-      >
+      <Button variant="outlined" onClick={() => dispatch(cancelFetch())}>
         Cancel
       </Button>
     </div>
@@ -39,13 +35,17 @@ export const TodoList: React.VFC = () => {
         User id:
         {userId || 'No user'}
       </h2>
-      {error && <pre><code>{JSON.stringify(error, null, 2)}</code></pre>}
+      {error && (
+        <pre>
+          <code>{JSON.stringify(error, null, 2)}</code>
+        </pre>
+      )}
       <TextField
         variant="outlined"
         size="small"
         value={currentUserId}
         disabled={isLoading}
-        onChange={(e) => setCurrentUserId(+e.currentTarget.value)}
+        onChange={e => setCurrentUserId(+e.currentTarget.value)}
       />
       <Button
         variant="outlined"
@@ -60,9 +60,7 @@ export const TodoList: React.VFC = () => {
   return (
     <>
       {isLoading || userBar}
-      <div className="todoList">
-        {isLoading ? spinner : todoList}
-      </div>
+      <div className="todoList">{isLoading ? spinner : todoList}</div>
     </>
   );
 };

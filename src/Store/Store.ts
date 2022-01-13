@@ -1,17 +1,22 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { rootEpic } from './Epics/RootEpic';
-import { TodoActionType, todoReducer } from './Reducers/TodoReducer';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {createEpicMiddleware} from 'redux-observable';
+import {rootEpic} from './Epics/RootEpic';
+import {TodoActionType, todoReducer} from './Reducers/TodoReducer';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const epicMiddleware = createEpicMiddleware<TodoActionType, TodoActionType, RootState>();
+const epicMiddleware = createEpicMiddleware<
+  TodoActionType,
+  TodoActionType,
+  RootState
+>();
 
-const rootReducer = combineReducers({ todo: todoReducer });
-export const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(epicMiddleware),
-));
+const rootReducer = combineReducers({todo: todoReducer});
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(epicMiddleware))
+);
 
 export type RootAction = TodoActionType;
 

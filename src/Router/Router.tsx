@@ -1,13 +1,13 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { TodoList } from '../Components/Todo/TodoList';
-import { RegisterForm } from '../Components/RegisterForm/RegisterForm';
-import { SimpleForm } from '../Components/SimpleForm/SimpleForm';
+import {Route, Routes} from 'react-router-dom';
+import {TodoList} from '../Components/Todo/TodoList';
+import {RegisterForm} from '../Components/RegisterForm/RegisterForm';
+import {SimpleForm} from '../Components/SimpleForm/SimpleForm';
 
 export enum PATH {
   TODOS = '/todos',
   REGISTER_FORM = '/register-form',
-  YUP_FORM = '/yup-form'
+  YUP_FORM = '/yup-form',
 }
 
 export const Router: React.VFC = () => {
