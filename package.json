@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.6.0",
     "@hookform/resolvers": "^2.8.5",
     "@mui/material": "^5.2.7",
+    "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -27,15 +28,12 @@
     "redux-thunk": "^2.4.1",
     "rxjs": "^7.5.1",
     "typesafe-actions": "^5.1.0",
-    "typescript": "^4.5.4",
     "web-vitals": "^2.1.2",
     "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
@@ -43,12 +41,6 @@
     "prepare": "npm.cmd run compile",
     "pretest": "npm.cmd run compile",
     "posttest": "npm.cmd run lint"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -63,9 +55,13 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
     "eslint": "^8.6.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "gts": "^3.1.0",
-    "typescript": "^4.0.3",
-    "@types/node": "^14.11.2"
+    "typescript": "^4.5.4"
   }
 }

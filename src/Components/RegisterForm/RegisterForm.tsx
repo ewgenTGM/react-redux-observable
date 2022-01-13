@@ -2,6 +2,11 @@ import React from 'react';
 import {Button, Paper, TextField} from '@mui/material';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {EMAIL_PATTERN} from '../../Helpers/Constants';
+import {useAppDispatch} from '../../Hooks/useAppDispatch';
+import {useAppSelector} from '../../Hooks/useAppSelector';
+import {appActions} from '../../Store/Reducers/AppSlice';
+import {Navigate} from 'react-router-dom';
+import {PATH} from '../../Router/Router';
 
 interface IFormInput {
   email: string;
@@ -10,13 +15,15 @@ interface IFormInput {
 }
 
 export const RegisterForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.appReducer.user);
   const {register, handleSubmit, formState, watch, trigger, reset} =
     useForm<IFormInput>();
+
   const password = watch('pass', '');
+
   const formSubmit: SubmitHandler<IFormInput> = data => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    alert(JSON.stringify(data, null, 2));
+    dispatch(appActions.setUser({user: data.email}));
   };
 
   const emailOpts = {
@@ -37,6 +44,10 @@ export const RegisterForm: React.FC = () => {
       validate: value => value === password || 'Passwords are not match',
     }),
   };
+
+  if (user) {
+    return <Navigate to={PATH.TODOS} />;
+  }
 
   return (
     <div className="register-form">

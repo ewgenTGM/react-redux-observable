@@ -1,29 +1,30 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {createEpicMiddleware} from 'redux-observable';
+import todoReducer from './Reducers/TodoSlice';
+import appReducer from './Reducers/AppSlice';
 import {rootEpic} from './Epics/RootEpic';
-import {TodoActionType, todoReducer} from './Reducers/TodoReducer';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import {Action} from 'typesafe-actions';
 
-const epicMiddleware = createEpicMiddleware<
-  TodoActionType,
-  TodoActionType,
-  RootState
->();
+const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();
+const combinedReducer = combineReducers({
+  todoReducer,
+  appReducer,
+});
 
-const rootReducer = combineReducers({todo: todoReducer});
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(epicMiddleware))
-);
+export const setupStore = () => {
+  return configureStore({
+    reducer: combinedReducer,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+        thunk: true,
+      }).concat(epicMiddleware),
+  });
+};
 
-export type RootAction = TodoActionType;
+export const configureEpic = () => epicMiddleware.run(rootEpic);
 
-export type RootState = ReturnType<typeof rootReducer>;
-export type AppDispatch = typeof store.dispatch;
-
-epicMiddleware.run(rootEpic);
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-window.store = store;
+export type RootState = ReturnType<typeof combinedReducer>;
+export type RootStore = ReturnType<typeof setupStore>;
+export type AppDispatch = RootStore['dispatch'];

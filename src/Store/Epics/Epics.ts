@@ -6,26 +6,30 @@ import {
   map,
   mergeMap,
   takeUntil,
+  tap,
 } from 'rxjs/operators';
 import {from, of} from 'rxjs';
-import {isOfType} from 'typesafe-actions';
+import {Action, isOfType} from 'typesafe-actions';
 import {todoApi} from '../../Api/Api';
-import {ACTION_TYPES, setError, setTodos} from '../Reducers/TodoReducer';
-import {RootAction, RootState} from '../Store';
+import {todoActions} from '../Reducers/TodoSlice';
+import {RootState} from '../Store';
 
-export const fetchUserTodos: Epic<
-  RootAction,
-  RootAction,
-  RootState
-> = action$ =>
+export const fetchUserTodos: Epic<Action, Action, RootState> = action$ =>
   action$.pipe(
-    filter(isOfType(ACTION_TYPES.FETCH_USER_TODOS)),
+    filter(isOfType(todoActions.fetchTodos.type)),
+    tap(console.log),
     mergeMap(action =>
       from(todoApi.getTodos(action.payload.fetchedUserId)).pipe(
         delay(1000),
-        map(response => setTodos(action.payload.fetchedUserId, response)),
-        catchError(e => of(setError(e))),
-        takeUntil(action$.pipe(filter(isOfType(ACTION_TYPES.CANCEL_FETCH))))
+        tap(console.log),
+        map(response =>
+          todoActions.setTodos({
+            todos: response,
+            userId: action.payload.fetchedUserId,
+          })
+        ),
+        catchError(e => of(todoActions.setError(e))),
+        takeUntil(action$.pipe(filter(isOfType(todoActions.cancelFetch.type))))
       )
     )
   );

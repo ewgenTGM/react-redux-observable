@@ -6,7 +6,6 @@ type PropsType = {
 };
 
 export const Todo: React.VFC<PropsType> = props => {
-  // eslint-disable-next-line react/prop-types
   const {title, id, completed} = props.todo;
   return (
     <div className="todo">

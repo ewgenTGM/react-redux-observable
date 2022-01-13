@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {Provider} from 'react-redux';
-import {store} from './Store/Store';
 import {App} from './Components/App/App';
+import {configureEpic, setupStore} from './Store/Store';
+
+const store = setupStore();
+configureEpic();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {Button, CircularProgress, TextField} from '@mui/material';
-import {cancelFetch, fetchUserTodos} from '../../Store/Reducers/TodoReducer';
 import {useAppSelector} from '../../Hooks/useAppSelector';
 import {Todo} from './Todo';
 import {useAppDispatch} from '../../Hooks/useAppDispatch';
+import {todoActions} from '../../Store/Reducers/TodoSlice';
 
 export const TodoList: React.VFC = () => {
   const dispatch = useAppDispatch();
   const [currentUserId, setCurrentUserId] = useState<number>(1);
-
-  const {todos, userId, error, isLoading} = useAppSelector(state => state.todo);
+  const {todos, userId, error, isLoading} = useAppSelector(
+    state => state.todoReducer
+  );
 
   const todoList =
     todos.length !== 0 ? (
@@ -23,7 +24,10 @@ export const TodoList: React.VFC = () => {
   const spinner = (
     <div className="spinner-with-cancellation">
       <CircularProgress />
-      <Button variant="outlined" onClick={() => dispatch(cancelFetch())}>
+      <Button
+        variant="outlined"
+        onClick={() => dispatch(todoActions.cancelFetch())}
+      >
         Cancel
       </Button>
     </div>
@@ -50,7 +54,9 @@ export const TodoList: React.VFC = () => {
       <Button
         variant="outlined"
         disabled={isLoading}
-        onClick={() => dispatch(fetchUserTodos(currentUserId))}
+        onClick={() =>
+          dispatch(todoActions.fetchTodos({fetchedUserId: currentUserId}))
+        }
       >
         Set user id
       </Button>
