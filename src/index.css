@@ -21,12 +21,29 @@ code {
 
 .navbar {
     display: flex;
-    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    justify-items: center;
+    gap: 15px;
     list-style: none;
 }
 
 .navbar li {
     color: green;
+}
+
+.navbar ul li a {
+    color: green;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.navbar ul li a.active {
+    color: tomato;
 }
 
 .user-bar {
@@ -86,11 +103,77 @@ code {
 }
 
 .register-form {
-    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
     padding: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-form__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.register-form__content form {
+    width: 100%;
+}
+
+.register-form__buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user__avatar {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+    -23px 0 20px -23px rgba(0, 0, 0, .6),
+    23px 0 20px -23px rgba(0, 0, 0, .6),
+    inset 0 0 40px rgba(0, 0, 0, .1);
 }
 
 .field-error-desc {
     color: red;
     font-size: 16px;
+}
+
+.repository__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.repository {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    padding: 15px;
+    gap: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+    -23px 0 20px -23px rgba(0, 0, 0, .6),
+    23px 0 20px -23px rgba(0, 0, 0, .6),
+    inset 0 0 40px rgba(0, 0, 0, .1);
+}
+
+.repository__languages_list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 10px;
+    font-weight: bold;
+    width: 100%;
 }

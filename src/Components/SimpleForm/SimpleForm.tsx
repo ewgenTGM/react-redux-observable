@@ -29,8 +29,7 @@ export const SimpleForm: React.VFC<PropsType> = () => {
     handleSubmit,
     formState: {errors},
   } = useForm<Inputs>({resolver: yupResolver(schema)});
-  const onSubmit: SubmitHandler<Inputs> = data =>
-    alert(JSON.stringify(data, null, 2));
+  const onSubmit: SubmitHandler<Inputs> = data => alert(JSON.stringify(data, null, 2));
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>

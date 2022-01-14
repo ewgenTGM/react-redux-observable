@@ -15,9 +15,7 @@ export const Todo: React.VFC<PropsType> = props => {
         {id}
       </div>
       <div>
-        <span className={completed ? 'completed' : 'incompleted'}>
-          {completed ? 'Complete' : 'Incomplete'}
-        </span>
+        <span className={completed ? 'completed' : 'incompleted'}>{completed ? 'Complete' : 'Incomplete'}</span>
       </div>
     </div>
   );

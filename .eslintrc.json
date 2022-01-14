@@ -1,17 +1,39 @@
 {
   "extends": [
-    "./node_modules/gts/",
-    "plugin:react-hooks/recommended"
+    "./node_modules/gts/"
   ],
   "plugins": [
-    // ...
-    "react-hooks"
+    "node"
   ],
   "rules": {
-    // ...
-    "react-hooks/rules-of-hooks": "error",
-    // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn"
-    // Checks effect dependencies
+    "node/no-extraneous-import": [
+      2,
+      {
+        "allowModules": [
+          "prop-types",
+          "react-router",
+          "history",
+          "moment",
+          "@testing-library/dom"
+        ]
+      }
+    ],
+    "node/no-unpublished-import": [
+      2,
+      {
+        "allowModules": [
+          "redux-mock-store",
+          "@testing-library/react",
+          "@testing-library/jest-dom",
+          "@testing-library/react-hooks"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      1,
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }

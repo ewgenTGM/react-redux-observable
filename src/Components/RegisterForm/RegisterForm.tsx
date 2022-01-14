@@ -17,8 +17,7 @@ interface IFormInput {
 export const RegisterForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.appReducer.user);
-  const {register, handleSubmit, formState, watch, trigger, reset} =
-    useForm<IFormInput>();
+  const {register, handleSubmit, formState, watch, trigger, reset} = useForm<IFormInput>();
 
   const password = watch('pass', '');
 
@@ -28,14 +27,14 @@ export const RegisterForm: React.FC = () => {
 
   const emailOpts = {
     ...register('email', {
-      required: 'Input email',
+      required: 'Type email',
       pattern: {value: EMAIL_PATTERN, message: 'invalid email'},
     }),
   };
 
   const passwordOpts = {
     ...register('pass', {
-      required: 'Input password',
+      required: 'Type password',
       minLength: {value: 4, message: 'Min length = 4'},
     }),
   };
@@ -51,46 +50,33 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <div className="register-form">
-      <Paper>
-        <h2>Register form</h2>
+      <Paper elevation={24} className={'register-form__content'}>
         <form onSubmit={handleSubmit(formSubmit)}>
+          <h2>Register form</h2>
           <div>
-            <TextField label="Email" size="small" {...emailOpts} />
-            <p className="field-error-desc">
-              {formState.errors.email && formState.errors.email.message}
-            </p>
+            <TextField label="Email" fullWidth size="small" {...emailOpts} />
+            <p className="field-error-desc">{formState.errors.email && formState.errors.email.message}</p>
           </div>
           <div>
-            <TextField
-              type="password"
-              label="Password"
-              size="small"
-              {...passwordOpts}
-            />
-            <p className="field-error-desc">
-              {formState.errors.pass && formState.errors.pass.message}
-            </p>
+            <TextField type="password" fullWidth label="Password" size="small" {...passwordOpts} />
+            <p className="field-error-desc">{formState.errors.pass && formState.errors.pass.message}</p>
           </div>
           <div>
-            <TextField
-              type="password"
-              label="Confirm password"
-              size="small"
-              {...passwordConfirmOpts}
-            />
+            <TextField type="password" fullWidth label="Confirm password" size="small" {...passwordConfirmOpts} />
           </div>
-          <p className="field-error-desc">
-            {formState.errors.passConfirm &&
-              formState.errors.passConfirm.message}
-          </p>
-          <Button size="small" variant="contained" type="submit">
-            Submit
-          </Button>
-          <Button size="small" variant="contained" onClick={() => reset()}>
-            Reset
-          </Button>
+          <p className="field-error-desc">{formState.errors.passConfirm && formState.errors.passConfirm.message}</p>
+          <div className={'register-form__buttons'}>
+            <Button size="small" variant="contained" type="submit" color={'primary'}>
+              Submit
+            </Button>
+            <Button size="small" variant="contained" onClick={() => reset()} color={'warning'}>
+              Reset
+            </Button>
+            <Button size="small" variant="contained" onClick={() => trigger()} color={'info'}>
+              Trigger check
+            </Button>
+          </div>
         </form>
-        <Button onClick={() => trigger()}>Trigger</Button>
       </Paper>
     </div>
   );

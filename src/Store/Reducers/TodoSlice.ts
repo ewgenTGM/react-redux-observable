@@ -1,7 +1,7 @@
 import {ITodo} from '../../Api/Api';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-type TodoStateType = {
+export type TodoStateType = {
   userId: number | null;
   todos: ITodo[];
   error: string;

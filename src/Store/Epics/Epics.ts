@@ -1,13 +1,5 @@
 import {Epic} from 'redux-observable';
-import {
-  catchError,
-  delay,
-  filter,
-  map,
-  mergeMap,
-  takeUntil,
-  tap,
-} from 'rxjs/operators';
+import {catchError, delay, filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {from, of} from 'rxjs';
 import {Action, isOfType} from 'typesafe-actions';
 import {todoApi} from '../../Api/Api';
