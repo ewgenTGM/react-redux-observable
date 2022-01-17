@@ -23,7 +23,7 @@ export const TodoList: React.VFC = () => {
     );
 
   const spinner = (
-    <div className="spinner-with-cancellation">
+    <div className="spinner-with-cancellation" data-testid={'spinner'}>
       <CircularProgress />
       <Button variant="outlined" onClick={() => dispatch(todoActions.cancelFetch())}>
         Cancel

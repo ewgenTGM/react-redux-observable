@@ -14,9 +14,6 @@ export const Nav: React.VFC = () => {
           <NavLink to={PATH.REGISTER_FORM}>Register-form</NavLink>
         </li>
         <li>
-          <NavLink to={PATH.YUP_FORM}>Yup-form</NavLink>
-        </li>
-        <li>
           <NavLink to={PATH.GRAPH_QL}>GraphQL</NavLink>
         </li>
       </ul>

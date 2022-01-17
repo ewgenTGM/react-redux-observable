@@ -9,7 +9,7 @@ export type TodoStateType = {
   fetchedUserId: number | null;
 };
 
-const initialState: TodoStateType = {
+export const initialState: TodoStateType = {
   userId: null,
   todos: [],
   error: '',

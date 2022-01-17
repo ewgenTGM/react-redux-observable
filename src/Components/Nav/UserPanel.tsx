@@ -19,9 +19,11 @@ export const UserPanel: React.VFC = () => {
           </Button>
         </>
       ) : (
-        <Button size={'small'} variant={'outlined'}>
-          <Link to={PATH.REGISTER_FORM}>Login</Link>
-        </Button>
+        <Link to={PATH.REGISTER_FORM}>
+          <Button size={'small'} variant={'outlined'}>
+            Register
+          </Button>
+        </Link>
       )}
     </Box>
   );
